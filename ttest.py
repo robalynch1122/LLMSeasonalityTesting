@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 from scipy import stats
+import seaborn as sns
 
 # New batch
 MayLengths = []
@@ -11,7 +12,7 @@ DecemberLengths = []
 
 # produce descriptive statistics for the two samples
 from scipy.stats import describe
-print('Compare May and December token lengths:')
+print('Compare May and December character lengths:')
 print('May descriptive stats: ', describe(MayLengths))
 print('December descriptive stats: ', describe(DecemberLengths))
 
@@ -31,7 +32,19 @@ else:
 # plot the two distributions
 import matplotlib.pyplot as plt
 plt.figure()
-plt.hist(MayLengths, bins=25, alpha=0.5, label='May Token Lengths')
-plt.hist(DecemberLengths, bins=25, alpha=0.5, label='December Token Lengths')
+plt.hist(MayLengths, bins=25, alpha=0.5, label='May Character Lengths')
+plt.hist(DecemberLengths, bins=25, alpha=0.5, label='December Character Lengths')
 plt.legend(loc='upper right')
+plt.savefig('Plot.png')
+
+# Plot density plots
+plt.figure()
+sns.kdeplot(MayLengths, label='May Character Lengths', shade=True)
+sns.kdeplot(DecemberLengths, label='December Character Lengths', shade=True)
+plt.legend(loc='upper right')
+plt.title('Density Plot of Token Lengths')
+
+# Save the plot
+plt.tight_layout()
+plt.savefig('DPlot.png')
 plt.show()
